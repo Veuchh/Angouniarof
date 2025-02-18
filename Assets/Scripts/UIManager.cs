@@ -33,8 +33,11 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        player1TokenParent.position = player1BoardParent.GetChild(0).position;
-        player2TokenParent.position = player2BoardParent.GetChild(0).position;
+        if (player1BoardParent.childCount != 0)
+            player1TokenParent.position = player1BoardParent.GetChild(0).position;
+
+        if (player2BoardParent.childCount != 0)
+            player2TokenParent.position = player2BoardParent.GetChild(0).position;
     }
 
     [Button]
@@ -75,9 +78,9 @@ public class UIManager : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(scoreRecapScreen.DOMoveY(
-            toggle ? 
-                scoreRecapShownPosition : 
-                scoreRecapHiddenPosition, 
+            toggle ?
+                scoreRecapShownPosition :
+                scoreRecapHiddenPosition,
             scoreRecapMoveDuration)
                 .SetEase(Ease.InOutBack));
 
