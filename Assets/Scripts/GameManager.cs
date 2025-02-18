@@ -54,7 +54,10 @@ public class GameManager : MonoBehaviour
         currentTurnIndex = 0;
         currentGameState = GameState.InGame;
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
-        StartPlayerTurn(PlayerID.Player1);
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(Hourglass.Instance.SetDefaultHourglass(currentWinningSide));
+        sequence.AppendCallback(() => StartPlayerTurn(PlayerID.Player1));
     }
 
     void EndRound()
@@ -70,13 +73,13 @@ public class GameManager : MonoBehaviour
             player2Score++;
         }
 
-        Sequence scoreRecviewSequence = DOTween.Sequence();
+        Sequence roundEndSequence = DOTween.Sequence();
+        roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
+        roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
 
-        scoreRecviewSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
-
-        scoreRecviewSequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
-        scoreRecviewSequence.AppendCallback(CheckForPlayerVictory);
-        scoreRecviewSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
+        roundEndSequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
+        roundEndSequence.AppendCallback(CheckForPlayerVictory);
+        roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
 
     }
 
