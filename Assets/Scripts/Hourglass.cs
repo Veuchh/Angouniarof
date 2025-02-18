@@ -34,9 +34,21 @@ public class Hourglass : MonoBehaviour
 
         Vector3 targetRotation = Vector3.zero;
 
-        targetRotation.z = 360 * setupTurnsAmount + startWinningSide == PlayerID.Player1 ? 0 : 180;
+        //targetRotation.z = 360 * setupTurnsAmount + startWinningSide == PlayerID.Player1 ? 0 : 180;
+        targetRotation.z = 360;
+        
+        float rotationTime = resultTweenDuration / setupTurnsAmount; 
+        
+        sequence.SetEase(Ease.InOutQuad);
+        sequence.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(setupTurnsAmount).SetEase(Ease.Linear));
 
-        sequence.Append(transform.DORotate(targetRotation, setupTweenDuration));
+        if (startWinningSide == PlayerID.Player2)
+        {
+            sequence.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
+                .SetRelative(true).SetEase(Ease.Linear));
+        }
+
+        //sequence.Append(transform.DORotate(targetRotation, setupTweenDuration));
 
         return sequence;
     }
@@ -54,11 +66,25 @@ public class Hourglass : MonoBehaviour
 
         Vector3 targetRotation = Vector3.zero;
 
-        targetRotation.z = 360 * resultTurnsAmount + finalWinningSide == PlayerID.Player1 ? 0 : 180;
+        targetRotation.z = 360;
+        //targetRotation.z = 360 * resultTurnsAmount + finalWinningSide == PlayerID.Player1 ? 0 : 180;
 
-        sequence.Append(transform.DORotate(targetRotation, resultTweenDuration));
-        sequence.Join(transform.DOMoveY(resultHeightChange, resultTweenDuration / 2).SetEase(Ease.OutQuad));
-        sequence.Join(transform.DOMoveY(0, resultTweenDuration / 2).SetEase(Ease.InQuad));
+        float rotationTime = resultTweenDuration / resultTurnsAmount; 
+        
+        sequence.SetEase(Ease.InOutQuad);
+        sequence.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(resultTurnsAmount).SetEase(Ease.Linear));
+
+        float finalResultTurnsDuration = resultTweenDuration;
+        if (finalWinningSide == PlayerID.Player2)
+        {
+            sequence.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
+                .SetRelative(true).SetEase(Ease.OutQuad));
+            finalResultTurnsDuration = rotationTime*(resultTurnsAmount+0.5f);
+        }
+
+        //sequence.Append(transform.DORotate(targetRotation, resultTweenDuration));
+        sequence.Join(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.OutQuad));
+        sequence.Join(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.InQuad));
         return sequence;
     }
 }
