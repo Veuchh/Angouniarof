@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     bool isPlayer1Ready = false;
     bool isPlayer2Ready = false;
 
+    private float playerTurnedStartTime;
+
     private void Awake()
     {
         Instance = this;
@@ -36,6 +38,8 @@ public class GameManager : MonoBehaviour
             else if (currentGameState == GameState.ScoreRecap)
                 StartRound();
         }
+        if (currentGameState == GameState.InGame && Time.time - playerTurnedStartTime >= turnDuration)
+            OnPlayerPlayedTurn();
     }
 
     void StartGame()
@@ -139,6 +143,7 @@ public class GameManager : MonoBehaviour
     void StartPlayerTurn(PlayerID nextPlayerTurn)
     {
         currentPlayerTurn = nextPlayerTurn;
+        playerTurnedStartTime = Time.time;
     }
 
     public void OnPlayerInput(PlayerID inputtingPlayer, InputType inputType)
