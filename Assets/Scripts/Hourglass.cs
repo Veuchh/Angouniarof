@@ -9,6 +9,7 @@ public class Hourglass : MonoBehaviour
 {
     public static Hourglass Instance;
 
+    [SerializeField] GameObject hourglassGFX;
     [Header("Hourglass settings")]
     [SerializeField] float setupTweenDuration = .5f;
     [SerializeField] int setupTurnsAmount = 10;
@@ -41,14 +42,16 @@ public class Hourglass : MonoBehaviour
         return sequence;
     }
 
-    public void MaskHourglass()
+    public void ToggleHourglass(bool toggle)
     {
-
+        hourglassGFX.SetActive(toggle);
     }
 
     public Tween ShowHourglassResult(PlayerID finalWinningSide)
     {
         ResetHourglassRotation();
+
+        ToggleHourglass(true);
 
         Sequence sequence = DOTween.Sequence();
 
@@ -57,8 +60,8 @@ public class Hourglass : MonoBehaviour
         targetRotation.z = 360 * resultTurnsAmount + finalWinningSide == PlayerID.Player1 ? 0 : 180;
 
         sequence.Append(transform.DORotate(targetRotation, resultTweenDuration));
-        sequence.Join(transform.DOMoveY(resultHeightChange, resultTweenDuration / 2).SetEase(Ease.OutQuad));
-        sequence.Join(transform.DOMoveY(0, resultTweenDuration / 2).SetEase(Ease.InQuad));
+        sequence.Join(transform.DOMoveY(resultHeightChange, resultTweenDuration / 2).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveY(0, resultTweenDuration / 2).SetEase(Ease.Linear));
         return sequence;
     }
 }

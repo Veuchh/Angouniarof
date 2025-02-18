@@ -52,11 +52,17 @@ public class GameManager : MonoBehaviour
         isPlayer1Ready = false;
         isPlayer2Ready = false;
         currentTurnIndex = 0;
-        currentGameState = GameState.InGame;
+
+        currentGameState = GameState.InTransition;
+
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(Hourglass.Instance.SetDefaultHourglass(currentWinningSide));
+        //TODO => Indicate clearly to the player which side is going to win if the hourglass is not flipped
+        sequence.AppendInterval(1);
+        sequence.AppendCallback(() => currentGameState = GameState.InGame);
+        sequence.AppendCallback(() => Hourglass.Instance.ToggleHourglass(false));
         sequence.AppendCallback(() => StartPlayerTurn(PlayerID.Player1));
     }
 
@@ -80,7 +86,6 @@ public class GameManager : MonoBehaviour
         roundEndSequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
         roundEndSequence.AppendCallback(CheckForPlayerVictory);
         roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
-
     }
 
     void CheckForPlayerVictory()

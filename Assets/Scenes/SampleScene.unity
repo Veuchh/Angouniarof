@@ -531,6 +531,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugGameStateText: {fileID: 1621643241}
+  scoreRecapScreen: {fileID: 0}
+  scoreRecapMoveDuration: 0.2
+  scoreRecapShownPosition: 0
+  scoreRecapHiddenPosition: 0
 --- !u!1 &1044568906
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +614,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1136470789 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5623594527562625983, guid: 260b52a7c76a84849a5d544091b92206, type: 3}
+  m_PrefabInstance: {fileID: 3728867947668329935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1621643239
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +865,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 532800513414998531, guid: 260b52a7c76a84849a5d544091b92206, type: 3}
+      propertyPath: hourglassGFX
+      value: 
+      objectReference: {fileID: 1136470789}
     - target: {fileID: 3641387019413692222, guid: 260b52a7c76a84849a5d544091b92206, type: 3}
       propertyPath: m_Name
       value: Hourglass
