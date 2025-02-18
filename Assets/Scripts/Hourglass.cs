@@ -76,17 +76,19 @@ public class Hourglass : MonoBehaviour
         sequenceFlip.SetEase(Ease.InOutQuad);
         sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(resultTurnsAmount).SetEase(Ease.Linear));
 
-        float finalResultTurnsDuration = resultTweenDuration;
+        float finalResultTurnsDuration = rotationTime;
         if (finalWinningSide == PlayerID.Player2)
         {
             sequenceFlip.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
                 .SetRelative(true).SetEase(Ease.OutQuad));
-            finalResultTurnsDuration *= resultTurnsAmount + 0.5f;
+            finalResultTurnsDuration *= resultTurnsAmount+0.5f;
         }
+        else
+            finalResultTurnsDuration *= resultTurnsAmount;
         
+        sequenceUpMovement.SetEase(Ease.InOutQuad);
         sequenceUpMovement.Append(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
         sequenceUpMovement.Append(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
-        sequenceUpMovement.SetEase(Ease.InOutQuad);
 
         
         Sequence finalSequence = DOTween.Sequence();
