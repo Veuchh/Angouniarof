@@ -151,6 +151,8 @@ RectTransform:
   m_Children:
   - {fileID: 1402953746}
   - {fileID: 1096539978}
+  - {fileID: 2029657861}
+  - {fileID: 1074493795}
   m_Father: {fileID: 1688640467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -612,10 +614,11 @@ MonoBehaviour:
   player2TokenPrefab: {fileID: 3321795733952367676, guid: 79fed1e80d214c3469b8349c65447179, type: 3}
   player2TokenParent: {fileID: 1074493795}
   boardTilePrefab: {fileID: 3321795733952367676, guid: 42275ad51283b754a8b8637e58efd5d9, type: 3}
-  player1BoardParent: {fileID: 2029657861}
-  player2BoardParent: {fileID: 1074493795}
+  player1BoardParent: {fileID: 1402953746}
+  player2BoardParent: {fileID: 1096539978}
   debugGameStateText: {fileID: 1621643241}
   scoreRecapScreen: {fileID: 153622935}
+  playerMovementDuration: 0.7
   scoreRecapMoveDuration: 0.5
   scoreRecapShownPosition: 540
   scoreRecapHiddenPosition: 1620
@@ -726,11 +729,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 153622935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1710, y: 1359}
+  m_AnchoredPosition: {x: 1710, y: -801}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1096539977
@@ -1305,11 +1308,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 153622935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1710, y: 1359}
+  m_AnchoredPosition: {x: 1710, y: -801}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1001 &3728867947668329935
@@ -1381,5 +1384,3 @@ SceneRoots:
   - {fileID: 1044568909}
   - {fileID: 3728867947668329935}
   - {fileID: 1688640467}
-  - {fileID: 2029657861}
-  - {fileID: 1074493795}
