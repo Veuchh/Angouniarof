@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
                 scoreRecapShownPosition : 
                 scoreRecapHiddenPosition, 
             scoreRecapMoveDuration)
-                .SetEase(Ease.OutBack));
+                .SetEase(Ease.InOutBack));
 
         return sequence;
     }

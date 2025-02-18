@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
         isPlayer2Ready = false;
         currentTurnIndex = 0;
 
+        UIManager.Instance.ToggleScoreRecapScreen(false);
+
         currentGameState = GameState.InTransition;
 
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
