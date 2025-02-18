@@ -9,6 +9,7 @@ public class Hourglass : MonoBehaviour
 {
     public static Hourglass Instance;
 
+    [SerializeField] GameObject hourglassGFX;
     [Header("Hourglass settings")]
     [SerializeField] float setupTweenDuration = .5f;
     [SerializeField] int setupTurnsAmount = 10;
@@ -53,38 +54,44 @@ public class Hourglass : MonoBehaviour
         return sequence;
     }
 
-    public void MaskHourglass()
+    public void ToggleHourglass(bool toggle)
     {
-
+        hourglassGFX.SetActive(toggle);
     }
 
     public Tween ShowHourglassResult(PlayerID finalWinningSide)
     {
         ResetHourglassRotation();
 
-        Sequence sequence = DOTween.Sequence();
+        ToggleHourglass(true);
+
+        Sequence sequenceFlip = DOTween.Sequence();
+        Sequence sequenceUpMovement = DOTween.Sequence();
 
         Vector3 targetRotation = Vector3.zero;
 
         targetRotation.z = 360;
-        //targetRotation.z = 360 * resultTurnsAmount + finalWinningSide == PlayerID.Player1 ? 0 : 180;
-
         float rotationTime = resultTweenDuration / resultTurnsAmount; 
         
-        sequence.SetEase(Ease.InOutQuad);
-        sequence.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(resultTurnsAmount).SetEase(Ease.Linear));
+        sequenceFlip.SetEase(Ease.InOutQuad);
+        sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(resultTurnsAmount).SetEase(Ease.Linear));
 
         float finalResultTurnsDuration = resultTweenDuration;
         if (finalWinningSide == PlayerID.Player2)
         {
-            sequence.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
+            sequenceFlip.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
                 .SetRelative(true).SetEase(Ease.OutQuad));
-            finalResultTurnsDuration = rotationTime*(resultTurnsAmount+0.5f);
+            finalResultTurnsDuration *= resultTurnsAmount + 0.5f;
         }
+        
+        sequenceUpMovement.Append(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
+        sequenceUpMovement.Append(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
+        sequenceUpMovement.SetEase(Ease.InOutQuad);
 
-        //sequence.Append(transform.DORotate(targetRotation, resultTweenDuration));
-        sequence.Join(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.OutQuad));
-        sequence.Join(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.InQuad));
-        return sequence;
+        
+        Sequence finalSequence = DOTween.Sequence();
+        finalSequence.Append(sequenceFlip);
+        finalSequence.Join(sequenceUpMovement);
+        return finalSequence;
     }
 }

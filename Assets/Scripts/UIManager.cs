@@ -35,7 +35,14 @@ public class UIManager : MonoBehaviour
     public Tween UpdateScores(int player1Score, int player2Score)
     {
         Sequence sequence = DOTween.Sequence();
+        //TODO
+        return sequence;
+    }
 
+    public Tween ShowPlayerWinUI(PlayerID winningPlayer)
+    {
+        Sequence sequence = DOTween.Sequence();
+        //TODO
         return sequence;
     }
 

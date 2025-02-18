@@ -52,11 +52,17 @@ public class GameManager : MonoBehaviour
         isPlayer1Ready = false;
         isPlayer2Ready = false;
         currentTurnIndex = 0;
-        currentGameState = GameState.InGame;
+
+        currentGameState = GameState.InTransition;
+
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(Hourglass.Instance.SetDefaultHourglass(currentWinningSide));
+        //TODO => Indicate clearly to the player which side is going to win if the hourglass is not flipped
+        sequence.AppendInterval(1);
+        sequence.AppendCallback(() => currentGameState = GameState.InGame);
+        sequence.AppendCallback(() => Hourglass.Instance.ToggleHourglass(false));
         sequence.AppendCallback(() => StartPlayerTurn(PlayerID.Player1));
     }
 
@@ -76,16 +82,41 @@ public class GameManager : MonoBehaviour
         Sequence roundEndSequence = DOTween.Sequence();
         roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
+        roundEndSequence.Append(UpdatePlayerScoreUI());
 
-        roundEndSequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
-        roundEndSequence.AppendCallback(CheckForPlayerVictory);
-        roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
-
+        if (currentGameState != GameState.GameOver)
+        {
+            roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
+        }
     }
 
-    void CheckForPlayerVictory()
+    Tween UpdatePlayerScoreUI()
     {
+        Sequence sequence = DOTween.Sequence();
 
+        sequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
+
+        if (player1Score >= pointsToWinGame)
+        {
+            sequence.Append(OnPlayerVictory(PlayerID.Player1));
+        }
+        else if (player2Score >= pointsToWinGame)
+        {
+            sequence.Append(OnPlayerVictory(PlayerID.Player2));
+        }
+
+        return sequence;
+    }
+
+    Tween OnPlayerVictory(PlayerID winningPlayer)
+    {
+        currentGameState = GameState.GameOver;
+
+        Sequence sequence = DOTween.Sequence();
+
+        UIManager.Instance.ShowPlayerWinUI(winningPlayer);
+
+        return sequence;
     }
 
     void OnPlayerPlayedTurn()
