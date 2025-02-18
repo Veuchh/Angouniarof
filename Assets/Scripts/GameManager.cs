@@ -82,15 +82,41 @@ public class GameManager : MonoBehaviour
         Sequence roundEndSequence = DOTween.Sequence();
         roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
+        roundEndSequence.Append(UpdatePlayerScoreUI());
 
-        roundEndSequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
-        roundEndSequence.AppendCallback(CheckForPlayerVictory);
-        roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
+        if (currentGameState != GameState.GameOver)
+        {
+            roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
+        }
     }
 
-    void CheckForPlayerVictory()
+    Tween UpdatePlayerScoreUI()
     {
+        Sequence sequence = DOTween.Sequence();
 
+        sequence.Append(UIManager.Instance.UpdateScores(player1Score, player2Score));
+
+        if (player1Score >= pointsToWinGame)
+        {
+            sequence.Append(OnPlayerVictory(PlayerID.Player1));
+        }
+        else if (player2Score >= pointsToWinGame)
+        {
+            sequence.Append(OnPlayerVictory(PlayerID.Player2));
+        }
+
+        return sequence;
+    }
+
+    Tween OnPlayerVictory(PlayerID winningPlayer)
+    {
+        currentGameState = GameState.GameOver;
+
+        Sequence sequence = DOTween.Sequence();
+
+        UIManager.Instance.ShowPlayerWinUI(winningPlayer);
+
+        return sequence;
     }
 
     void OnPlayerPlayedTurn()
