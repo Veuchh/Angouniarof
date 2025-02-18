@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     void StartGame()
     {
         currentGameState = GameState.Starting;
+        UIManager.Instance.SetupBoardGame(pointsToWinGame + 1);
         player1Score = 0;
         player2Score = 0;
 
