@@ -14,6 +14,7 @@ public class Hourglass : MonoBehaviour
     [SerializeField] LayerMask playerCameraShownLayerMask;
     [SerializeField] Camera playerCamera;
     [Header("Hourglass settings")]
+    [SerializeField] float singleRotationDuration = .3f;
     [SerializeField] float setupTweenDuration = .5f;
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
@@ -61,6 +62,20 @@ public class Hourglass : MonoBehaviour
     public void ToggleHourglass(bool toggle)
     {
         playerCamera.cullingMask = toggle ? playerCameraShownLayerMask : playerCameraHiddenLayerMask;
+    }
+
+    public Tween RotateHourglassToPlayerWinningState(PlayerID playerID)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        Vector3 targetRotation = Vector3.zero;
+
+        targetRotation.z = playerID == PlayerID.Player1 ? 0 : 180;
+
+        sequence.SetEase(Ease.InOutQuad);
+        sequence.Append(transform.DORotate(targetRotation, singleRotationDuration));
+
+        return sequence;
     }
 
     public Tween ShowHourglassResult(PlayerID finalWinningSide)
