@@ -170,6 +170,10 @@ public class GameManager : MonoBehaviour
                 currentWinningSide = currentWinningSide == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
                 sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide));
             }
+            else
+            {
+                sequence.Append(Hourglass.Instance.BluffHourglass());
+            }
 
             currentInputType = inputType;
             sequence.AppendCallback(OnPlayerPlayedTurn);

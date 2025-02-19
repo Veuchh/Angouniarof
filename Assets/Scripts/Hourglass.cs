@@ -77,6 +77,18 @@ public class Hourglass : MonoBehaviour
         return sequence;
     }
 
+    public Tween BluffHourglass()
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.SetEase(Ease.InOutQuad);
+        sequence.Append(transform.DOMoveX(xMovementWhenBluffing, singleRotationDuration / 4).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveX(-xMovementWhenBluffing, singleRotationDuration / 2).SetEase(Ease.Linear));
+        sequence.Append(transform.DOMoveX(0, singleRotationDuration / 4).SetEase(Ease.Linear));
+
+        return sequence;
+    }
+
     public Tween ShowHourglassResult(PlayerID finalWinningSide)
     {
         ResetHourglassRotation();
