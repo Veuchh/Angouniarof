@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
-    [HideInInspector] public Stack<InputType> playerInputStack = new();
+
+    [HideInInspector] public Queue<InputType> playerInputStack = new();
 
     [Header("Game Settings")]
     [SerializeField] int roundTurnsAmount = 15;
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
         roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
         roundEndSequence.Append(UpdatePlayerScoreUI());
-        
+
         playerInputStack.Clear();
 
         if (currentGameState != GameState.GameOver)
@@ -161,14 +161,16 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameState == GameState.InGame && inputtingPlayer == currentPlayerTurn)
         {
-            playerInputStack.Push(inputType);
+            Sequence sequence = DOTween.Sequence();
+            playerInputStack.Enqueue(inputType);
 
             if (inputType == InputType.Rotate)
             {
                 currentWinningSide = currentWinningSide == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
+                sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide));
             }
 
-            OnPlayerPlayedTurn();
+            sequence.AppendCallback(OnPlayerPlayedTurn);
         }
         else if (currentGameState == GameState.ScoreRecap || currentGameState == GameState.Starting)
         {

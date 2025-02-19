@@ -45,11 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a634cd2c990f79409d4b6babe50cefa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hourglassGFX: {fileID: 5623594527562625983}
-  setupTweenDuration: 0.5
+  playerCameraHiddenLayerMask:
+    serializedVersion: 2
+    m_Bits: 55
+  playerCameraShownLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  playerCamera: {fileID: 0}
+  singleRotationDuration: 0.3
+  setupTweenDuration: 1.5
   setupTurnsAmount: 10
   resultTweenDuration: 10
-  resultHeightChange: 3
   xMovementWhenBluffing: 0.5
 --- !u!1001 &4812778708190252782
 PrefabInstance:
@@ -103,6 +109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hourglass_debug
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e0fce1c124a688c42b2616a88cc69b22, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -111,10 +121,5 @@ PrefabInstance:
 --- !u!4 &4990223412476717317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e0fce1c124a688c42b2616a88cc69b22, type: 3}
-  m_PrefabInstance: {fileID: 4812778708190252782}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5623594527562625983 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e0fce1c124a688c42b2616a88cc69b22, type: 3}
   m_PrefabInstance: {fileID: 4812778708190252782}
   m_PrefabAsset: {fileID: 0}

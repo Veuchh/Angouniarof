@@ -9,13 +9,15 @@ using UnityEngine;
 public class Hourglass : MonoBehaviour
 {
     public static Hourglass Instance;
-
-    [SerializeField] GameObject hourglassGFX;
+    
+    [SerializeField] LayerMask playerCameraHiddenLayerMask;
+    [SerializeField] LayerMask playerCameraShownLayerMask;
+    [SerializeField] Camera playerCamera;
     [Header("Hourglass settings")]
+    [SerializeField] float singleRotationDuration = .3f;
     [SerializeField] float setupTweenDuration = .5f;
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
-    [SerializeField] float resultHeightChange = 3;
     [SerializeField] float xMovementWhenBluffing = 5;
     // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
 
@@ -58,7 +60,21 @@ public class Hourglass : MonoBehaviour
 
     public void ToggleHourglass(bool toggle)
     {
-        hourglassGFX.SetActive(toggle);
+        playerCamera.cullingMask = toggle ? playerCameraShownLayerMask : playerCameraHiddenLayerMask;
+    }
+
+    public Tween RotateHourglassToPlayerWinningState(PlayerID playerID)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        Vector3 targetRotation = Vector3.zero;
+
+        targetRotation.z = playerID == PlayerID.Player1 ? 0 : 180;
+
+        sequence.SetEase(Ease.InOutQuad);
+        sequence.Append(transform.DORotate(targetRotation, singleRotationDuration));
+
+        return sequence;
     }
 
     public Tween ShowHourglassResult(PlayerID finalWinningSide)
@@ -68,10 +84,9 @@ public class Hourglass : MonoBehaviour
         ToggleHourglass(true);
 
         Sequence sequenceFlip = DOTween.Sequence();
-        Sequence sequenceUpMovement = DOTween.Sequence();
 
         Vector3 targetRotation = Vector3.zero;
-        Stack<InputType> playerTurnStack = GameManager.Instance.playerInputStack;
+        Queue<InputType> playerTurnStack = GameManager.Instance.playerInputStack;
         int resultTurnsAmount = playerTurnStack.Count;
         float rotationTime = resultTweenDuration / resultTurnsAmount;
         
@@ -80,17 +95,18 @@ public class Hourglass : MonoBehaviour
         int loop = 0;
         while (playerTurnStack.Count > 0)
         {
-            InputType inputType = playerTurnStack.Pop();
+            InputType inputType = playerTurnStack.Dequeue();
             if (inputType == InputType.Rotate)
             {
-                targetRotation.z = loop%2 == 0 ? 360 : -360;
+                targetRotation.z = loop%2 == 0 ? 180 : -180;
                 sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.InOutQuad));
             }
             else
             {
-                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 4).SetEase(Ease.Linear));
-                sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 2).SetEase(Ease.Linear));
-                sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 4).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 16).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 8).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 16).SetEase(Ease.Linear));
+                sequenceFlip.AppendInterval(.15f);
             }
             ++loop;
         }
@@ -104,15 +120,10 @@ public class Hourglass : MonoBehaviour
         }
         else
             finalResultTurnsDuration *= resultTurnsAmount;
-        
-        sequenceUpMovement.SetEase(Ease.InOutBounce);
-        sequenceUpMovement.Append(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
-        sequenceUpMovement.Append(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
 
         
         Sequence finalSequence = DOTween.Sequence();
         finalSequence.Append(sequenceFlip);
-        finalSequence.Join(sequenceUpMovement);
         return finalSequence;
     }
 }
