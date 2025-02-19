@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [HideInInspector] public Queue<InputType> playerInputStack = new();
+    [HideInInspector] public Queue<InputType> playerInputQueue = new();
 
     [Header("Game Settings")]
     [SerializeField] int roundTurnsAmount = 15;
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     bool isPlayer2Ready = false;
 
     private float playerTurnedStartTime;
+    private InputType currentInputType;
 
     private void Awake()
     {
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
         roundEndSequence.Append(UpdatePlayerScoreUI());
 
-        playerInputStack.Clear();
+        playerInputQueue.Clear();
 
         if (currentGameState != GameState.GameOver)
         {
@@ -137,7 +138,7 @@ public class GameManager : MonoBehaviour
     void OnPlayerPlayedTurn()
     {
         UIManager.Instance.UpdateStep(currentPlayerTurn, currentTurnIndex);
-        UIManager.Instance.UpdateLastMove(currentPlayerTurn, playerInputStack.Peek());
+        UIManager.Instance.UpdateLastMove(currentPlayerTurn, currentInputType);
         currentTurnIndex++;
 
         if (currentTurnIndex >= roundTurnsAmount)
@@ -162,7 +163,7 @@ public class GameManager : MonoBehaviour
         if (currentGameState == GameState.InGame && inputtingPlayer == currentPlayerTurn)
         {
             Sequence sequence = DOTween.Sequence();
-            playerInputStack.Enqueue(inputType);
+            playerInputQueue.Enqueue(inputType);
 
             if (inputType == InputType.Rotate)
             {
@@ -170,6 +171,7 @@ public class GameManager : MonoBehaviour
                 sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide));
             }
 
+            currentInputType = inputType;
             sequence.AppendCallback(OnPlayerPlayedTurn);
         }
         else if (currentGameState == GameState.ScoreRecap || currentGameState == GameState.Starting)

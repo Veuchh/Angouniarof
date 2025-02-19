@@ -1,9 +1,7 @@
 using UnityEngine;
 using TMPro;
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using NaughtyAttributes;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour

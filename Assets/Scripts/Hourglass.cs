@@ -86,7 +86,7 @@ public class Hourglass : MonoBehaviour
         Sequence sequenceFlip = DOTween.Sequence();
 
         Vector3 targetRotation = Vector3.zero;
-        Queue<InputType> playerTurnStack = GameManager.Instance.playerInputStack;
+        Queue<InputType> playerTurnStack = GameManager.Instance.playerInputQueue;
         int resultTurnsAmount = playerTurnStack.Count;
         float rotationTime = resultTweenDuration / resultTurnsAmount;
         
