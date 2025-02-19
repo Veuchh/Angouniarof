@@ -18,7 +18,6 @@ public class Hourglass : MonoBehaviour
     [SerializeField] float setupTweenDuration = .5f;
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
-    [SerializeField] float resultHeightChange = 3;
     [SerializeField] float xMovementWhenBluffing = 5;
     // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
 
@@ -85,7 +84,6 @@ public class Hourglass : MonoBehaviour
         ToggleHourglass(true);
 
         Sequence sequenceFlip = DOTween.Sequence();
-        Sequence sequenceUpMovement = DOTween.Sequence();
 
         Vector3 targetRotation = Vector3.zero;
         Queue<InputType> playerTurnStack = GameManager.Instance.playerInputStack;
@@ -100,14 +98,15 @@ public class Hourglass : MonoBehaviour
             InputType inputType = playerTurnStack.Dequeue();
             if (inputType == InputType.Rotate)
             {
-                targetRotation.z = loop%2 == 0 ? 360 : -360;
+                targetRotation.z = loop%2 == 0 ? 180 : -180;
                 sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.InOutQuad));
             }
             else
             {
-                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 4).SetEase(Ease.Linear));
-                sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 2).SetEase(Ease.Linear));
-                sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 4).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 16).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 8).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 16).SetEase(Ease.Linear));
+                sequenceFlip.AppendInterval(.15f);
             }
             ++loop;
         }
@@ -121,15 +120,10 @@ public class Hourglass : MonoBehaviour
         }
         else
             finalResultTurnsDuration *= resultTurnsAmount;
-        
-        sequenceUpMovement.SetEase(Ease.InOutBounce);
-        sequenceUpMovement.Append(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
-        sequenceUpMovement.Append(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
 
         
         Sequence finalSequence = DOTween.Sequence();
         finalSequence.Append(sequenceFlip);
-        finalSequence.Join(sequenceUpMovement);
         return finalSequence;
     }
 }

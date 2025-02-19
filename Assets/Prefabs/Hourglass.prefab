@@ -52,10 +52,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   playerCamera: {fileID: 0}
-  setupTweenDuration: 0.5
+  singleRotationDuration: 0.3
+  setupTweenDuration: 1.5
   setupTurnsAmount: 10
   resultTweenDuration: 10
-  resultHeightChange: 3
   xMovementWhenBluffing: 0.5
 --- !u!1001 &4812778708190252782
 PrefabInstance:

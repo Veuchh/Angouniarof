@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    
+
     [HideInInspector] public Queue<InputType> playerInputStack = new();
 
     [Header("Game Settings")]
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
         roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
         roundEndSequence.Append(UpdatePlayerScoreUI());
-        
+
         playerInputStack.Clear();
 
         if (currentGameState != GameState.GameOver)
@@ -156,15 +156,16 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameState == GameState.InGame && inputtingPlayer == currentPlayerTurn)
         {
+            Sequence sequence = DOTween.Sequence();
             playerInputStack.Enqueue(inputType);
 
             if (inputType == InputType.Rotate)
             {
                 currentWinningSide = currentWinningSide == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
-                Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide);
+                sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide));
             }
 
-            OnPlayerPlayedTurn();
+            sequence.AppendCallback(OnPlayerPlayedTurn);
         }
         else if (currentGameState == GameState.ScoreRecap || currentGameState == GameState.Starting)
         {
