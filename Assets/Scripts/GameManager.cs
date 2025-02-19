@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     
-    [HideInInspector] public Stack<InputType> playerInputStack = new();
+    [HideInInspector] public Queue<InputType> playerInputStack = new();
 
     [Header("Game Settings")]
     [SerializeField] int roundTurnsAmount = 15;
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentGameState == GameState.InGame && inputtingPlayer == currentPlayerTurn)
         {
-            playerInputStack.Push(inputType);
+            playerInputStack.Enqueue(inputType);
 
             if (inputType == InputType.Rotate)
             {
