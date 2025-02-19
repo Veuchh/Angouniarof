@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class Hourglass : MonoBehaviour
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
     [SerializeField] float resultHeightChange = 3;
-    [SerializeField] int resultTurnsAmount = 30;
+    // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class Hourglass : MonoBehaviour
         //targetRotation.z = 360 * setupTurnsAmount + startWinningSide == PlayerID.Player1 ? 0 : 180;
         targetRotation.z = 360;
         
-        float rotationTime = resultTweenDuration / setupTurnsAmount; 
+        float rotationTime = setupTweenDuration / setupTurnsAmount; 
         
         sequence.SetEase(Ease.InOutQuad);
         sequence.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(setupTurnsAmount).SetEase(Ease.Linear));
@@ -69,24 +70,36 @@ public class Hourglass : MonoBehaviour
         Sequence sequenceUpMovement = DOTween.Sequence();
 
         Vector3 targetRotation = Vector3.zero;
-
-        targetRotation.z = 360;
-        float rotationTime = resultTweenDuration / resultTurnsAmount; 
+        Stack<InputType> playerTurnStack = GameManager.Instance.playerInputStack;
+        int resultTurnsAmount = playerTurnStack.Count;
+        float rotationTime = resultTweenDuration / resultTurnsAmount;
         
-        sequenceFlip.SetEase(Ease.InOutQuad);
-        sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetLoops(resultTurnsAmount).SetEase(Ease.Linear));
+        sequenceFlip.SetEase(Ease.InOutFlash);
+
+        int loop = 0;
+        while (playerTurnStack.Count > 0)
+        {
+            InputType inputType = playerTurnStack.Pop();
+            if (inputType == InputType.Rotate)
+            {
+                targetRotation.z = loop%2 == 0 ? 360 : -360;
+            }
+            
+            sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.Linear));
+            ++loop;
+        }
 
         float finalResultTurnsDuration = rotationTime;
         if (finalWinningSide == PlayerID.Player2)
         {
-            sequenceFlip.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
+            sequenceFlip.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime / 2)
                 .SetRelative(true).SetEase(Ease.OutQuad));
-            finalResultTurnsDuration *= resultTurnsAmount+0.5f;
+            finalResultTurnsDuration *= resultTurnsAmount + 0.5f;
         }
         else
             finalResultTurnsDuration *= resultTurnsAmount;
         
-        sequenceUpMovement.SetEase(Ease.InOutQuad);
+        sequenceUpMovement.SetEase(Ease.InOutBounce);
         sequenceUpMovement.Append(transform.DOMoveY(resultHeightChange, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
         sequenceUpMovement.Append(transform.DOMoveY(0, finalResultTurnsDuration / 2).SetEase(Ease.Linear));
 

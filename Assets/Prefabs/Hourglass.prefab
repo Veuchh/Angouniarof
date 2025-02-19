@@ -48,9 +48,8 @@ MonoBehaviour:
   hourglassGFX: {fileID: 5623594527562625983}
   setupTweenDuration: 0.5
   setupTurnsAmount: 10
-  resultTweenDuration: 0.5
+  resultTweenDuration: 10
   resultHeightChange: 3
-  resultTurnsAmount: 30
 --- !u!1001 &4812778708190252782
 PrefabInstance:
   m_ObjectHideFlags: 0
