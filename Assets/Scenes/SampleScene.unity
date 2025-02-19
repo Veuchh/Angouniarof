@@ -1135,6 +1135,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 532800513414998531, guid: 260b52a7c76a84849a5d544091b92206, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 3641387019413692222, guid: 260b52a7c76a84849a5d544091b92206, type: 3}
       propertyPath: m_Name
       value: Hourglass

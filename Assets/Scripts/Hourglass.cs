@@ -9,8 +9,10 @@ using UnityEngine;
 public class Hourglass : MonoBehaviour
 {
     public static Hourglass Instance;
-
-    [SerializeField] GameObject hourglassGFX;
+    
+    [SerializeField] LayerMask playerCameraHiddenLayerMask;
+    [SerializeField] LayerMask playerCameraShownLayerMask;
+    [SerializeField] Camera playerCamera;
     [Header("Hourglass settings")]
     [SerializeField] float setupTweenDuration = .5f;
     [SerializeField] int setupTurnsAmount = 10;
@@ -58,7 +60,7 @@ public class Hourglass : MonoBehaviour
 
     public void ToggleHourglass(bool toggle)
     {
-        hourglassGFX.SetActive(toggle);
+        playerCamera.cullingMask = toggle ? playerCameraShownLayerMask : playerCameraHiddenLayerMask;
     }
 
     public Tween ShowHourglassResult(PlayerID finalWinningSide)
