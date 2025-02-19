@@ -16,6 +16,7 @@ public class Hourglass : MonoBehaviour
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
     [SerializeField] float resultHeightChange = 3;
+    [SerializeField] float xMovementWhenBluffing = 5;
     // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
 
     private void Awake()
@@ -83,9 +84,14 @@ public class Hourglass : MonoBehaviour
             if (inputType == InputType.Rotate)
             {
                 targetRotation.z = loop%2 == 0 ? 360 : -360;
+                sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.InOutQuad));
             }
-            
-            sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.Linear));
+            else
+            {
+                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 4).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 2).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 4).SetEase(Ease.Linear));
+            }
             ++loop;
         }
 
