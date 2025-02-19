@@ -50,6 +50,7 @@ MonoBehaviour:
   setupTurnsAmount: 10
   resultTweenDuration: 10
   resultHeightChange: 3
+  xMovementWhenBluffing: 0.5
 --- !u!1001 &4812778708190252782
 PrefabInstance:
   m_ObjectHideFlags: 0
