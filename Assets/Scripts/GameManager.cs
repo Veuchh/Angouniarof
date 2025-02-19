@@ -168,7 +168,9 @@ public class GameManager : MonoBehaviour
             if (inputType == InputType.Rotate)
             {
                 currentWinningSide = currentWinningSide == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
+                sequence.AppendCallback(() => currentGameState = GameState.InTransition);
                 sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide));
+                sequence.AppendCallback(() => currentGameState = GameState.InGame);
             }
             else
             {
