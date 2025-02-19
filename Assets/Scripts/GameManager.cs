@@ -62,6 +62,9 @@ public class GameManager : MonoBehaviour
         currentTurnIndex = 0;
 
         UIManager.Instance.ToggleScoreRecapScreen(false);
+        UIManager.Instance.ResetStep();
+        UIManager.Instance.ResetLastMove();
+        UIManager.Instance.UpdateRoundText();
 
         currentGameState = GameState.InTransition;
 
@@ -133,6 +136,8 @@ public class GameManager : MonoBehaviour
 
     void OnPlayerPlayedTurn()
     {
+        UIManager.Instance.UpdateStep(currentPlayerTurn, currentTurnIndex);
+        UIManager.Instance.UpdateLastMove(currentPlayerTurn, playerInputStack.Peek());
         currentTurnIndex++;
 
         if (currentTurnIndex >= roundTurnsAmount)

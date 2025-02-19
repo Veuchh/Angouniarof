@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerStatePublic
       objectReference: {fileID: 0}
+    - target: {fileID: 4491326920276953930, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7908774445824454514, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -130,6 +134,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 913507772684522383, guid: 0c891d7064d19fe49a2876ff69808645, type: 3}
+      propertyPath: m_TargetDisplay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1373385155245624869, guid: 0c891d7064d19fe49a2876ff69808645, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -291,6 +299,22 @@ PrefabInstance:
     - target: {fileID: 1550897054610854230, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
       propertyPath: m_Name
       value: PlayerStatePublic (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630871059368083104, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630871059368083104, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 3630871059368083104, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491326920276953930, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7908774445824454514, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
       propertyPath: m_AnchorMax.y
