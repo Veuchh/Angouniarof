@@ -27,6 +27,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Image> playersActionPublic;
     [SerializeField] private List<Sprite> rotationSprites;
     [SerializeField] private List<Sprite> cancelSprites;
+    
+    [Header("Center Text parameters")]
+    [SerializeField] private TextMeshProUGUI centerText;
+    [SerializeField] private float apparitionTime, fadingTime;
+    [SerializeField] private Color redColor, blueColor;
 
 
     Transform player1Instance;
@@ -37,6 +42,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        ResetText();
     }
 
     public void UpdateGameStateDebug(GameState newState, PlayerID currentPlayerTurn, PlayerID currentWinningState, int player1Score, int player2Score)
@@ -105,7 +111,6 @@ public class UIManager : MonoBehaviour
 
     public Tween ToggleScoreRecapScreen(bool toggle)
     {
-
         Sequence sequence = DOTween.Sequence();
 
         sequence.Join(playerScoreRecapScreen.ToggleScoreRecapScreen(toggle));
@@ -128,5 +133,26 @@ public class UIManager : MonoBehaviour
     {
         playerScoreRecapScreen.ShowPlayerWinUI(winningPlayer);
         audienceScoreRecapScreen.ShowPlayerWinUI(winningPlayer);
+    }
+
+    public void MakeTextAppear(PlayerID playerID)
+    {
+        Color color = playerID == PlayerID.Player1 ? redColor : blueColor;
+        string text = "A TOI " + (playerID == PlayerID.Player1 ? "ROUGE" : "BLEU");
+
+        centerText.color = new Color(color.r, color.g, color.b, 0);
+        centerText.text = text;
+        
+        centerText.gameObject.SetActive(true);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(centerText.rectTransform.DOScale(Vector3.one/10, apparitionTime).From());
+        sequence.Join(centerText.DOColor(color, fadingTime));
+        sequence.Append(centerText.DOColor(new Color(color.r, color.g, color.b, 0), fadingTime));
+        sequence.OnComplete(ResetText);
+    }
+
+    private void ResetText()
+    {
+        centerText.gameObject.SetActive(false);
     }
 }
