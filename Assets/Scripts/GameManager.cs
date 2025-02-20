@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
 
         Sequence sequence = DOTween.Sequence();
+        sequence.AppendCallback(() => AudioManager.Instance.ChangeMusicType(true));
         sequence.Append(Hourglass.Instance.SetDefaultHourglass(currentWinningSide));
         //TODO => Indicate clearly to the player which side is going to win if the hourglass is not flipped
         sequence.AppendInterval(1);
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
 
         Sequence roundEndSequence = DOTween.Sequence();
         roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
+        roundEndSequence.AppendCallback(() => AudioManager.Instance.ChangeMusicType(false));
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
         roundEndSequence.Append(UpdatePlayerScoreUI());
 

@@ -407,6 +407,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxAs: {fileID: 2126094739}
+  chillMusicAs: {fileID: 0}
+  gameMusicAs: {fileID: 0}
+  fadeMusicDuration: 1
 --- !u!4 &498038470
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,7 +1590,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1774114054}
   - component: {fileID: 1774114053}
-  - component: {fileID: 1774114052}
   - component: {fileID: 1774114051}
   m_Layer: 0
   m_Name: PublicCamera
@@ -1640,14 +1642,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1774114052
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774114050}
-  m_Enabled: 1
 --- !u!20 &1774114053
 Camera:
   m_ObjectHideFlags: 0
