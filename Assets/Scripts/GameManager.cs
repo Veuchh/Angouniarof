@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        UIManager.Instance.UpdateGameStateDebug(currentGameState, currentPlayerTurn, currentWinningSide, player1Score, player2Score);
+        UIManager.Instance.UpdateGameStateDebug(currentGameState, currentPlayerTurn, currentWinningSide, player1Score,
+            player2Score);
 
         if (isPlayer1Ready && isPlayer2Ready)
         {
@@ -45,8 +46,14 @@ public class GameManager : MonoBehaviour
             else if (currentGameState == GameState.ScoreRecap)
                 StartRound();
         }
-        if (currentGameState == GameState.InGame && Time.time - playerTurnedStartTime >= turnDuration)
-            OnPlayerInput(currentPlayerTurn, InputType.Fake);
+
+        if (currentGameState == GameState.InGame)
+        {
+            if (Time.time - playerTurnedStartTime >= turnDuration)
+                OnPlayerInput(currentPlayerTurn, InputType.Fake);
+            else
+                UIManager.Instance.DisplayTimeLeft(- Time.time + playerTurnedStartTime + turnDuration);
+        }
     }
 
     void StartGame()

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roundTurnsAmount: 6
-  turnDuration: 5
+  turnDuration: 7
   pointsToWinGame: 3
   playerPlayedSFX: {fileID: 11400000, guid: 638908aa67bb500469949e6d6d5bc7e5, type: 2}
 --- !u!114 &8670409376829630197
@@ -119,6 +119,11 @@ MonoBehaviour:
   playersActionPublic: []
   rotationSprites: []
   cancelSprites: []
+  centerText: {fileID: 0}
+  apparitionTime: 0
+  fadingTime: 0
+  redColor: {r: 0, g: 0, b: 0, a: 0}
+  blueColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5350608013795281605
 MonoBehaviour:
   m_ObjectHideFlags: 0

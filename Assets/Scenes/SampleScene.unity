@@ -698,10 +698,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGameUiMain
       objectReference: {fileID: 0}
-    - target: {fileID: 4057580172556452038, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
-      propertyPath: m_Name
-      value: CenterText
-      objectReference: {fileID: 0}
     - target: {fileID: 5171449149292246819, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -877,10 +873,6 @@ PrefabInstance:
     - target: {fileID: 7614297916763246397, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7685319278588571390, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1472,17 +1464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fc9a798b0f3d34aa6f1b8a27ca8838, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1766133891 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7685319278588571390, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
-  m_PrefabInstance: {fileID: 807088637}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1771080131 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3844330211036196278, guid: ceeab92aac988894b95a66bdd6433d15, type: 3}
@@ -1862,6 +1843,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 498038470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2138966987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5724324736397919113, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
+  m_PrefabInstance: {fileID: 807088637}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3728867947668329935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2211,7 +2203,7 @@ PrefabInstance:
     - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
       propertyPath: centerText
       value: 
-      objectReference: {fileID: 1766133891}
+      objectReference: {fileID: 2138966987}
     - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
       propertyPath: fadingTime
       value: 0.5
@@ -2332,6 +2324,10 @@ PrefabInstance:
       propertyPath: 'playersActionPublic.Array.data[1]'
       value: 
       objectReference: {fileID: 523345887}
+    - target: {fileID: 8869937023072864033, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
+      propertyPath: turnDuration
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

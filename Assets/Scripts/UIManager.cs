@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
@@ -38,11 +39,16 @@ public class UIManager : MonoBehaviour
     Transform player2Instance;
 
     private int roundIndex = 1;
+    
+    private bool textFinished;
+    private int firstSecond;
 
     private void Awake()
     {
         Instance = this;
-        ResetText();
+        centerText.gameObject.SetActive(false);
+        centerText.gameObject.SetActive(true);
+        centerText.gameObject.SetActive(false);
     }
 
     public void UpdateGameStateDebug(GameState newState, PlayerID currentPlayerTurn, PlayerID currentWinningState, int player1Score, int player2Score)
@@ -137,6 +143,7 @@ public class UIManager : MonoBehaviour
 
     public void MakeTextAppear(PlayerID playerID)
     {
+        textFinished = false;
         Color color = playerID == PlayerID.Player1 ? redColor : blueColor;
         string text = "A TOI " + (playerID == PlayerID.Player1 ? "ROUGE" : "BLEU");
 
@@ -153,6 +160,22 @@ public class UIManager : MonoBehaviour
 
     private void ResetText()
     {
-        centerText.gameObject.SetActive(false);
+        textFinished = true;
+        firstSecond = 0;
+    }
+
+    public void DisplayTimeLeft(float timeLeft)
+    {
+        if (textFinished)
+        {
+            int realSecond = (int)Math.Truncate(timeLeft);
+
+            if(firstSecond == 0)
+                firstSecond = realSecond;
+            if(firstSecond == realSecond)
+                return;
+            centerText.color += new Color(0, 0, 0, 1);
+            centerText.text = (realSecond+1).ToString();
+        }
     }
 }
