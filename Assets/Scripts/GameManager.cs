@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] int roundTurnsAmount = 15;
     [SerializeField] float turnDuration = 5f;
     [SerializeField] int pointsToWinGame = 3;
+    
+    [Header("Audio")]
+    [SerializeField] SFXData playerPlayedSFX;
 
     int player1Score = 0;
     int player2Score = 0;
@@ -178,6 +181,8 @@ public class GameManager : MonoBehaviour
                 sequence.Append(Hourglass.Instance.BluffHourglass());
                 sequence.AppendCallback(() => currentGameState = GameState.InGame);
             }
+
+            AudioManager.Instance.PlaySFX(playerPlayedSFX);
 
             currentInputType = inputType;
             sequence.AppendCallback(OnPlayerPlayedTurn);

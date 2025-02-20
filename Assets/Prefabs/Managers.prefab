@@ -93,6 +93,7 @@ MonoBehaviour:
   roundTurnsAmount: 6
   turnDuration: 5
   pointsToWinGame: 3
+  playerPlayedSFX: {fileID: 11400000, guid: 638908aa67bb500469949e6d6d5bc7e5, type: 2}
 --- !u!114 &8670409376829630197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +109,16 @@ MonoBehaviour:
   playerScoreRecapScreen: {fileID: 0}
   audienceScoreRecapScreen: {fileID: 0}
   debugGameStateText: {fileID: 0}
+  playerMovementDuration: 0.7
+  scoreRecapMoveDuration: 0.2
+  scoreRecapShownPosition: 0
+  scoreRecapHiddenPosition: 0
+  player1StepsMain: []
+  player2StepsMain: []
+  roundText: {fileID: 0}
+  playersActionPublic: []
+  rotationSprites: []
+  cancelSprites: []
 --- !u!114 &5350608013795281605
 MonoBehaviour:
   m_ObjectHideFlags: 0
