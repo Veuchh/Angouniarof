@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d11faae87973f44da833ad78e22f9a8, type: 3}
+  m_Name: PlayerPlayedSFX
+  m_EditorClassIdentifier: 
+  pickFromRandomList: 1
+  audioClip: {fileID: 8300000, guid: e39c58763b5000242a220db085e5d1b3, type: 3}
+  randomAudioClipList:
+  - {fileID: 8300000, guid: b502ce891f3d80e4db4011e15c523e9a, type: 3}
+  - {fileID: 8300000, guid: d870ff23aa5474c4eac17ae4990c5c04, type: 3}
+  - {fileID: 8300000, guid: a8c8781769dfb9d49abe01b9bc617369, type: 3}
+  volume: 1
+  randomizePitch: 1
+  minMaxPitch: {x: 0.9, y: 1.1}
