@@ -19,6 +19,7 @@ public class Hourglass : MonoBehaviour
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
     [SerializeField] float xMovementWhenBluffing = 5;
+    [SerializeField] private SFXData rotateSFX;
     // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
 
     private void Awake()
@@ -73,6 +74,7 @@ public class Hourglass : MonoBehaviour
 
         sequence.SetEase(Ease.InOutQuad);
         sequence.Append(transform.DORotate(targetRotation, singleRotationDuration));
+        sequence.OnPlay(PlayRotateSound);
 
         return sequence;
     }
@@ -85,6 +87,7 @@ public class Hourglass : MonoBehaviour
         sequence.Append(transform.DOMoveX(xMovementWhenBluffing, singleRotationDuration / 4).SetEase(Ease.Linear));
         sequence.Append(transform.DOMoveX(-xMovementWhenBluffing, singleRotationDuration / 2).SetEase(Ease.Linear));
         sequence.Append(transform.DOMoveX(0, singleRotationDuration / 4).SetEase(Ease.Linear));
+        sequence.OnPlay(PlayRotateSound);
 
         return sequence;
     }
@@ -137,5 +140,10 @@ public class Hourglass : MonoBehaviour
         Sequence finalSequence = DOTween.Sequence();
         finalSequence.Append(sequenceFlip);
         return finalSequence;
+    }
+
+    private void PlayRotateSound()
+    {
+        AudioManager.Instance.PlaySFX(rotateSFX);
     }
 }
