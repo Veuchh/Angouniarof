@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerPlayedSFX
   m_EditorClassIdentifier: 
   pickFromRandomList: 0
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: e39c58763b5000242a220db085e5d1b3, type: 3}
   randomAudioClipList: []
   volume: 1
-  randomizePitch: 0
-  minMaxPitch: {x: 1, y: 1}
+  randomizePitch: 1
+  minMaxPitch: {x: 0.9, y: 1.1}
