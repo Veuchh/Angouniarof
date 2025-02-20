@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
     {
         currentPlayerTurn = nextPlayerTurn;
         playerTurnedStartTime = Time.time;
+        UIManager.Instance.MakeTextAppear(nextPlayerTurn);
     }
 
     public void OnPlayerInput(PlayerID inputtingPlayer, InputType inputType)
