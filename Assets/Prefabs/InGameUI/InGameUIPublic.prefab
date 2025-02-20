@@ -301,17 +301,9 @@ PrefabInstance:
       value: PlayerStatePublic (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3630871059368083104, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
-      propertyPath: m_Color.b
-      value: 0.7921569
-      objectReference: {fileID: 0}
-    - target: {fileID: 3630871059368083104, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 3630871059368083104, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
-      propertyPath: m_Color.r
-      value: 0.4392157
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6b570cb04ff44d41a88877b0a4a0bf9, type: 3}
     - target: {fileID: 4491326920276953930, guid: e900959a265cc534794d56ba0b446bd6, type: 3}
       propertyPath: m_Color.a
       value: 0

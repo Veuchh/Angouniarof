@@ -151,6 +151,8 @@ public class UIManager : MonoBehaviour
         centerText.text = text;
         
         centerText.gameObject.SetActive(true);
+        centerText.rectTransform.localScale = Vector3.one;
+        
         Sequence sequence = DOTween.Sequence();
         sequence.Append(centerText.rectTransform.DOScale(Vector3.one/10, apparitionTime).From());
         sequence.Join(centerText.DOColor(color, fadingTime));
