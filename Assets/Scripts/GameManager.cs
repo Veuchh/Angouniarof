@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
                 StartGame();
             else if (currentGameState == GameState.ScoreRecap)
                 StartRound();
+            else if (currentGameState == GameState.GameOver)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         if (currentGameState == GameState.InGame)
@@ -82,7 +85,7 @@ public class GameManager : MonoBehaviour
         currentGameState = GameState.InTransition;
 
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
-        Debug.Log(currentWinningSide);
+        startWinningSide = currentWinningSide;
 
         Sequence sequence = DOTween.Sequence();
         sequence.AppendCallback(() => AudioManager.Instance.ChangeMusicType(true));
@@ -100,6 +103,7 @@ public class GameManager : MonoBehaviour
     {
         currentGameState = GameState.InTransition;
         UIManager.Instance.HideCenterText();
+        UIManager.Instance.ResetPlayerScreen();
 
         if (currentWinningSide == PlayerID.Player1)
         {
@@ -177,6 +181,7 @@ public class GameManager : MonoBehaviour
         currentPlayerTurn = nextPlayerTurn;
         playerTurnedStartTime = Time.time;
         UIManager.Instance.MakeTextAppear(nextPlayerTurn);
+        UIManager.Instance.PlayerScreen(nextPlayerTurn);
     }
 
     public void OnPlayerInput(PlayerID inputtingPlayer, InputType inputType)
@@ -189,7 +194,6 @@ public class GameManager : MonoBehaviour
             if (inputType == InputType.Rotate)
             {
                 currentWinningSide = currentWinningSide == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
-                Debug.Log(currentWinningSide);
                 sequence.AppendCallback(() => currentGameState = GameState.InTransition);
                 sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(inputtingPlayer));
                 sequence.AppendCallback(() => currentGameState = GameState.InGame);
@@ -210,7 +214,13 @@ public class GameManager : MonoBehaviour
         {
             if (inputtingPlayer == PlayerID.Player1)
                 isPlayer1Ready = inputType == InputType.Rotate;
-
+            else
+                isPlayer2Ready = inputType == InputType.Rotate;
+        }
+        else if (currentGameState == GameState.GameOver)
+        {
+            if (inputtingPlayer == PlayerID.Player1)
+                isPlayer1Ready = inputType == InputType.Rotate;
             else
                 isPlayer2Ready = inputType == InputType.Rotate;
         }

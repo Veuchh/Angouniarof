@@ -3,7 +3,10 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Sequence = DG.Tweening.Sequence;
 
 public class UIManager : MonoBehaviour
 {
@@ -28,6 +31,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Image> playersActionPublic;
     [SerializeField] private List<Sprite> rotationSprites;
     [SerializeField] private List<Sprite> cancelSprites;
+    [SerializeField] private List<Image> playerTurnBackground;
+    [SerializeField] private List<Sprite> playerTurnImages;
     
     [Header("Center Text parameters")]
     [SerializeField] private TextMeshProUGUI centerText;
@@ -184,5 +189,17 @@ public class UIManager : MonoBehaviour
     public void HideCenterText()
     {
         centerText.gameObject.SetActive(false);
+    }
+
+    public void PlayerScreen(PlayerID playerID)
+    {
+        playerTurnBackground[0].sprite = playerTurnImages[playerID == PlayerID.Player1 ? 0 : 1];
+        playerTurnBackground[1].sprite = playerTurnImages[playerID == PlayerID.Player1 ? 0 : 1];
+    }
+
+    public void ResetPlayerScreen()
+    {
+        playerTurnBackground[0].sprite = playerTurnImages[2];
+        playerTurnBackground[1].sprite = playerTurnImages[2];
     }
 }
