@@ -117,13 +117,17 @@ MonoBehaviour:
   player2StepsMain: []
   roundText: {fileID: 0}
   playersActionPublic: []
-  rotationSprites: []
-  cancelSprites: []
+  rotationSprites:
+  - {fileID: 21300000, guid: b890786d603fa14419f69365f3697ead, type: 3}
+  - {fileID: 21300000, guid: 28cce088421f26c42b2b83877b46ed6b, type: 3}
+  cancelSprites:
+  - {fileID: 21300000, guid: 946a0dd23f0a53f489d4dea54ad5d650, type: 3}
+  - {fileID: 21300000, guid: 753bfcf943e903f469c5760fc0e6c627, type: 3}
   centerText: {fileID: 0}
-  apparitionTime: 0
-  fadingTime: 0
-  redColor: {r: 0, g: 0, b: 0, a: 0}
-  blueColor: {r: 0, g: 0, b: 0, a: 0}
+  apparitionTime: 1.5
+  fadingTime: 0.5
+  redColor: {r: 0.8588236, g: 0.29411766, b: 0.29411766, a: 1}
+  blueColor: {r: 0.43921572, g: 0.7019608, b: 0.79215693, a: 1}
 --- !u!114 &5350608013795281605
 MonoBehaviour:
   m_ObjectHideFlags: 0

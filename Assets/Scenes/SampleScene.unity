@@ -2130,22 +2130,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1771080131}
     - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
-      propertyPath: cancelSprites.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
-      propertyPath: rotationSprites.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
-      propertyPath: 'cancelSprites.Array.data[0]'
-      value: 
-      objectReference: {fileID: 21300000, guid: f3ceaa7a54a3ec84db790adf253c9388, type: 3}
-    - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
-      propertyPath: 'cancelSprites.Array.data[1]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 4f6eff34dd8bcef41b5cb35b6288172d, type: 3}
-    - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
       propertyPath: player1StepsMain.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -2153,14 +2137,6 @@ PrefabInstance:
       propertyPath: player2StepsMain.Array.size
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
-      propertyPath: 'rotationSprites.Array.data[0]'
-      value: 
-      objectReference: {fileID: 21300000, guid: b7a6b322743ce8447887f0537f4db331, type: 3}
-    - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
-      propertyPath: 'rotationSprites.Array.data[1]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 2d61ab7abbddcb84a8da6cd842d0d273, type: 3}
     - target: {fileID: 8670409376829630197, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
       propertyPath: 'player1StepsMain.Array.data[0]'
       value: 
