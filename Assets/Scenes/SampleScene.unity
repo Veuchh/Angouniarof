@@ -156,7 +156,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.8901961, g: 0.9019608, b: 0.56078434, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -732,6 +732,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6771584955519759575, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7095382764098311831, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -831,7 +835,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6730674602739876929, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1531735563}
   m_SourcePrefab: {fileID: 100100000, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
 --- !u!114 &807088638 stripped
 MonoBehaviour:
@@ -1271,6 +1278,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1531735561 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6730674602739876929, guid: e34a98fd6f8606f42bf11057d46159d5, type: 3}
+  m_PrefabInstance: {fileID: 807088637}
+  m_PrefabAsset: {fileID: 0}
+--- !u!222 &1531735563
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531735561}
+  m_CullTransparentMesh: 1
 --- !u!1 &1621643239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1435,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3749748502918928726, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -5323025353482653598, guid: f16b39a3ca9298f47a355801cb636261, type: 2}
     - target: {fileID: 6320706401289441660, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
       propertyPath: m_Name
       value: AudioManager
@@ -1459,6 +1483,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7284561779951530796, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: d2c6bf084f33cbf409c64424fda3afce, type: 3}
+    - target: {fileID: 7284561779951530796, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d2c6bf084f33cbf409c64424fda3afce, type: 3}
+    - target: {fileID: 7284561779951530796, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -7914003201841937908, guid: f16b39a3ca9298f47a355801cb636261, type: 2}
+    - target: {fileID: 7552682792208466475, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 7587f3a569ca3bf4381729f0b82e9ace, type: 3}
+    - target: {fileID: 7552682792208466475, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7587f3a569ca3bf4381729f0b82e9ace, type: 3}
+    - target: {fileID: 7552682792208466475, guid: 4bebc7e26062332478b671b7a38cd531, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -7914003201841937908, guid: f16b39a3ca9298f47a355801cb636261, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1504,7 +1552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1772426402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,7 +1708,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BackGroundColor: {r: 0.8901961, g: 0.9019608, b: 0.56078434, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2174,9 +2222,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 523345887}
     - target: {fileID: 8869937023072864033, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
+      propertyPath: roundEndSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: ad5cb32b20327f041889e30ffc341420, type: 2}
+    - target: {fileID: 8869937023072864033, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
       propertyPath: turnDuration
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8869937023072864033, guid: 9d34c5529476ab4428cee95803117b6b, type: 3}
+      propertyPath: roundStartSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: 38d4263be7afa37409c4a8556785ce01, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     
     [Header("Audio")]
     [SerializeField] SFXData playerPlayedSFX;
+    [SerializeField] SFXData roundStartSFX;
+    [SerializeField] SFXData roundEndSFX;
 
     int player1Score = 0;
     int player2Score = 0;
@@ -90,6 +92,8 @@ public class GameManager : MonoBehaviour
         sequence.AppendCallback(() => currentGameState = GameState.InGame);
         sequence.AppendCallback(() => Hourglass.Instance.ToggleHourglass(false));
         sequence.AppendCallback(() => StartPlayerTurn(PlayerID.Player1));
+        
+        AudioManager.Instance.PlaySFX(roundStartSFX);
     }
 
     void EndRound()
@@ -118,6 +122,8 @@ public class GameManager : MonoBehaviour
         {
             roundEndSequence.AppendCallback(() => currentGameState = GameState.ScoreRecap);
         }
+        
+        AudioManager.Instance.PlaySFX(roundEndSFX);
     }
 
     Tween UpdatePlayerScoreUI()

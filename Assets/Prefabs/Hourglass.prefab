@@ -57,6 +57,8 @@ MonoBehaviour:
   setupTurnsAmount: 10
   resultTweenDuration: 10
   xMovementWhenBluffing: 0.5
+  rotateSFX: {fileID: 0}
+  endRecapSFX: {fileID: 11400000, guid: d3c2720f31a3cf543bf82a369394daf1, type: 2}
 --- !u!1001 &4812778708190252782
 PrefabInstance:
   m_ObjectHideFlags: 0
