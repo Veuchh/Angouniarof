@@ -229,6 +229,8 @@ MonoBehaviour:
   scoreRecapMoveDuration: 0.2
   scoreRecapShownPart: -2
   scoreRecapHiddenPart: -4
+  whooshIn: {fileID: 11400000, guid: c3423569690b3774c954d09379e60f73, type: 2}
+  whooshOut: {fileID: 11400000, guid: c3423569690b3774c954d09379e60f73, type: 2}
 --- !u!1 &4612105108574828253
 GameObject:
   m_ObjectHideFlags: 0

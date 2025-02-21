@@ -20,6 +20,10 @@ public class ScoreRecapScreen : MonoBehaviour
     [SerializeField] float scoreRecapMoveDuration = .2f;
     [SerializeField] float scoreRecapShownPart;
     [SerializeField] float scoreRecapHiddenPart;
+    
+    [Header("Audio")]
+    [SerializeField] SFXData whooshIn;
+    [SerializeField] SFXData whooshOut;
 
     Transform player1Instance;
     Transform player2Instance;
@@ -77,6 +81,7 @@ public class ScoreRecapScreen : MonoBehaviour
     {
         Sequence sequence = DOTween.Sequence();
 
+        sequence.AppendCallback(() => AudioManager.Instance.PlaySFX(toggle ? whooshIn : whooshOut));
         sequence.Append(scoreRecapScreen.DOMoveY(
             rectTransform.localScale.y * rectTransform.rect.y * (toggle ?
                 scoreRecapShownPart :
