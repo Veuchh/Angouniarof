@@ -180,4 +180,9 @@ public class UIManager : MonoBehaviour
             centerText.text = (realSecond+1).ToString();
         }
     }
+
+    public void HideCenterText()
+    {
+        centerText.gameObject.SetActive(false);
+    }
 }

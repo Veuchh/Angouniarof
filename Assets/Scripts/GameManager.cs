@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     int player1Score = 0;
     int player2Score = 0;
     int currentTurnIndex = 0;
-    PlayerID currentWinningSide;
+    PlayerID currentWinningSide, startWinningSide;
     PlayerID currentPlayerTurn = PlayerID.Player1;
     GameState currentGameState = GameState.Starting;
 
@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         currentGameState = GameState.InTransition;
 
         currentWinningSide = Random.Range(0, 2) == 1 ? PlayerID.Player1 : PlayerID.Player2;
+        Debug.Log(currentWinningSide);
 
         Sequence sequence = DOTween.Sequence();
         sequence.AppendCallback(() => AudioManager.Instance.ChangeMusicType(true));
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
     void EndRound()
     {
         currentGameState = GameState.InTransition;
+        UIManager.Instance.HideCenterText();
 
         if (currentWinningSide == PlayerID.Player1)
         {
@@ -105,7 +107,7 @@ public class GameManager : MonoBehaviour
         }
 
         Sequence roundEndSequence = DOTween.Sequence();
-        roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(currentWinningSide));
+        roundEndSequence.Append(Hourglass.Instance.ShowHourglassResult(startWinningSide));
         roundEndSequence.AppendCallback(() => AudioManager.Instance.ChangeMusicType(false));
         roundEndSequence.Append(UIManager.Instance.ToggleScoreRecapScreen(true));
         roundEndSequence.Append(UpdatePlayerScoreUI());
@@ -181,8 +183,9 @@ public class GameManager : MonoBehaviour
             if (inputType == InputType.Rotate)
             {
                 currentWinningSide = currentWinningSide == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
+                Debug.Log(currentWinningSide);
                 sequence.AppendCallback(() => currentGameState = GameState.InTransition);
-                sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(currentWinningSide));
+                sequence.Append(Hourglass.Instance.RotateHourglassToPlayerWinningState(inputtingPlayer));
                 sequence.AppendCallback(() => currentGameState = GameState.InGame);
             }
             else

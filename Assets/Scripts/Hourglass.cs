@@ -21,21 +21,23 @@ public class Hourglass : MonoBehaviour
     [SerializeField] float xMovementWhenBluffing = 5;
     [SerializeField] private SFXData rotateSFX;
     // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
-
+    
     private void Awake()
     {
         Instance = this;
     }
 
-    public void ResetHourglassRotation()
+    public void ResetHourglassRotation(PlayerID startWinningSide)
     {
         transform.rotation = Quaternion.identity;
+        if(startWinningSide == PlayerID.Player2)
+            transform.rotation = Quaternion.Euler(0, 0, 180);
     }
 
     public Tween SetDefaultHourglass(PlayerID startWinningSide)
     {
-        ResetHourglassRotation();
-
+        ResetHourglassRotation(startWinningSide);
+        
         Sequence sequence = DOTween.Sequence();
 
         Vector3 targetRotation = Vector3.zero;
@@ -50,8 +52,7 @@ public class Hourglass : MonoBehaviour
 
         if (startWinningSide == PlayerID.Player2)
         {
-            sequence.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2)
-                .SetRelative(true).SetEase(Ease.Linear));
+            sequence.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime/2).SetEase(Ease.Linear));
         }
 
         //sequence.Append(transform.DORotate(targetRotation, setupTweenDuration));
@@ -70,10 +71,10 @@ public class Hourglass : MonoBehaviour
 
         Vector3 targetRotation = Vector3.zero;
 
-        targetRotation.z = playerID == PlayerID.Player1 ? 0 : 180;
+        targetRotation.z = playerID == PlayerID.Player1 ? 180 : -180;
 
         sequence.SetEase(Ease.InOutQuad);
-        sequence.Append(transform.DORotate(targetRotation, singleRotationDuration));
+        sequence.Append(transform.DORotate(targetRotation, singleRotationDuration).SetRelative(true));
         sequence.OnPlay(PlayRotateSound);
 
         return sequence;
@@ -92,9 +93,9 @@ public class Hourglass : MonoBehaviour
         return sequence;
     }
 
-    public Tween ShowHourglassResult(PlayerID finalWinningSide)
+    public Tween ShowHourglassResult(PlayerID startWinningSide)
     {
-        ResetHourglassRotation();
+        ResetHourglassRotation(startWinningSide);
 
         ToggleHourglass(true);
 
@@ -126,15 +127,15 @@ public class Hourglass : MonoBehaviour
             ++loop;
         }
 
-        float finalResultTurnsDuration = rotationTime;
-        if (finalWinningSide == PlayerID.Player2)
-        {
-            sequenceFlip.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime / 2)
-                .SetRelative(true).SetEase(Ease.OutQuad));
-            finalResultTurnsDuration *= resultTurnsAmount + 0.5f;
-        }
-        else
-            finalResultTurnsDuration *= resultTurnsAmount;
+        // float finalResultTurnsDuration = rotationTime;
+        // if (finalWinningSide == PlayerID.Player2)
+        // {
+        //     sequenceFlip.Append(transform.DORotate(new Vector3(0, 0, 180), rotationTime / 2)
+        //         .SetRelative(true).SetEase(Ease.OutQuad));
+        //     finalResultTurnsDuration *= resultTurnsAmount + 0.5f;
+        // }
+        // else
+        //     finalResultTurnsDuration *= resultTurnsAmount;
 
         
         Sequence finalSequence = DOTween.Sequence();
