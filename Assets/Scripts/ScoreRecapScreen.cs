@@ -1,4 +1,5 @@
-using DG.Tweening;
+    using System;
+    using DG.Tweening;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
@@ -17,11 +18,17 @@ public class ScoreRecapScreen : MonoBehaviour
     [Header("Tweening settings")]
     [SerializeField] float playerMovementDuration = .7f;
     [SerializeField] float scoreRecapMoveDuration = .2f;
-    [SerializeField] float scoreRecapShownPosition;
-    [SerializeField] float scoreRecapHiddenPosition;
+    [SerializeField] float scoreRecapShownPart;
+    [SerializeField] float scoreRecapHiddenPart;
 
     Transform player1Instance;
     Transform player2Instance;
+    RectTransform rectTransform;
+
+    private void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
 
 
     private void Update()
@@ -71,9 +78,9 @@ public class ScoreRecapScreen : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(scoreRecapScreen.DOMoveY(
-            toggle ?
-                scoreRecapShownPosition :
-                scoreRecapHiddenPosition,
+            rectTransform.localScale.y * rectTransform.rect.y * (toggle ?
+                scoreRecapShownPart :
+                scoreRecapHiddenPart),
             scoreRecapMoveDuration)
                 .SetEase(Ease.InOutBack));
 
