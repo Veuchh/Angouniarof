@@ -23,6 +23,21 @@ public class AudioManager : MonoBehaviour
         sfxAs.PlayOneShot(sfxData.GetAudioClip);
     }
 
+    public void Play(SFXData sfxData)
+    {
+        if(sfxAs.isPlaying)
+            return;
+        sfxAs.pitch = sfxData.GetPitch;
+        sfxAs.volume = sfxData.GetVolume;
+        sfxAs.clip = sfxData.GetAudioClip;
+        sfxAs.Play();
+    }
+
+    public void Stop()
+    {
+        sfxAs.Stop();
+    }
+
     public void ChangeMusicType(bool isInGame)
     {
         DOTween.To(() => chillMusicAs.volume, x => chillMusicAs.volume = x, isInGame ? 0 : 1, fadeMusicDuration);

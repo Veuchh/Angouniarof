@@ -228,7 +228,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -280,6 +280,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1904447139053781540}
     m_Modifications:
+    - target: {fileID: 344591478057177234, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 423301698558400884, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 885881526735755573, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
       propertyPath: m_Name
       value: PlayerStateMain
@@ -316,6 +324,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3186931519557446107, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e8d0eb8752597f4d944c75b80c71949, type: 3}
+    - target: {fileID: 3255438347046920253, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e8d0eb8752597f4d944c75b80c71949, type: 3}
     - target: {fileID: 3572808854523663151, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -348,6 +364,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b737236aee26b4c43b5c8dadcb7cc3dc, type: 3}
+    - target: {fileID: 6576842831175134994, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e8d0eb8752597f4d944c75b80c71949, type: 3}
     - target: {fileID: 7343780075518271910, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -474,6 +494,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007696127714357738, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338378421080594011, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8710571600586308309, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
@@ -696,6 +720,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1904447139053781540}
     m_Modifications:
+    - target: {fileID: 344591478057177234, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 423301698558400884, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 885881526735755573, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
       propertyPath: m_Name
       value: PlayerStateMain (1)
@@ -886,6 +918,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007696127714357738, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338378421080594011, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8710571600586308309, guid: 039c0ff0a56686c4a8c75f5222655cd4, type: 3}

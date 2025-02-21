@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 sequence.AppendCallback(() => currentGameState = GameState.InTransition);
-                sequence.Append(Hourglass.Instance.BluffHourglass());
+                sequence.Append(Hourglass.Instance.BluffHourglass(inputtingPlayer));
                 sequence.AppendCallback(() => currentGameState = GameState.InGame);
             }
 

@@ -38,8 +38,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI centerText;
     [SerializeField] private float apparitionTime, fadingTime;
     [SerializeField] private Color redColor, blueColor;
+    [SerializeField] private SFXData timerCountdown;
 
     [SerializeField] private List<TextMeshProUGUI> victoryTexts;
+
 
 
     Transform player1Instance;
@@ -74,17 +76,17 @@ public class UIManager : MonoBehaviour
     public void UpdateStep(PlayerID currentPlayerTurn, int currentTurnIndex)
     {
         if (currentPlayerTurn == PlayerID.Player1)
-            player1StepsMain[currentTurnIndex / 2].color = Color.white;
+            player1StepsMain[currentTurnIndex / 2].enabled = true;
         else
-            player2StepsMain[(currentTurnIndex - 1) / 2].color = Color.white;
+            player2StepsMain[(currentTurnIndex - 1) / 2].enabled = true;
     }
 
     public void ResetStep()
     {
         for (int loop = 0; loop < player1StepsMain.Count; loop++)
         {
-            player1StepsMain[loop].color = new Color(.5f, .5f, .5f, .5f);
-            player2StepsMain[loop].color = new Color(.5f, .5f, .5f, .5f);
+            player1StepsMain[loop].enabled = false;
+            player2StepsMain[loop].enabled = false;
         }
     }
 
@@ -169,8 +171,7 @@ public class UIManager : MonoBehaviour
 
     private void ResetText()
     {
-        textFinished = true;
-        firstSecond = 0;
+        textFinished = true; 
     }
 
     public void DisplayTimeLeft(float timeLeft)
@@ -179,10 +180,10 @@ public class UIManager : MonoBehaviour
         {
             int realSecond = (int)Math.Truncate(timeLeft);
 
-            if(firstSecond == 0)
-                firstSecond = realSecond;
-            if(firstSecond == realSecond)
+            if(realSecond > 9)
                 return;
+            if(realSecond <= 5)
+                AudioManager.Instance.Play(timerCountdown);
             centerText.color += new Color(0, 0, 0, 1);
             centerText.text = (realSecond+1).ToString();
         }

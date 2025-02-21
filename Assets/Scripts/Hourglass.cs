@@ -19,8 +19,16 @@ public class Hourglass : MonoBehaviour
     [SerializeField] int setupTurnsAmount = 10;
     [SerializeField] float resultTweenDuration = 1.3f;
     [SerializeField] float xMovementWhenBluffing = 5;
+    
+    [Header("Audio")]
     [SerializeField] private SFXData rotateSFX;
     [SerializeField] private SFXData endRecapSFX;
+    [SerializeField] private SFXData rotateRecapSFX;
+    [SerializeField] private SFXData bluffRecapSFX;
+    
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem redVFX;
+    [SerializeField] private ParticleSystem blueVFX;
     // [SerializeField] int resultTurnsAmount = 30; No need for it anymore, now storing inputs to know how many
     
     private void Awake()
@@ -76,21 +84,31 @@ public class Hourglass : MonoBehaviour
 
         sequence.SetEase(Ease.InOutQuad);
         sequence.Append(transform.DORotate(targetRotation, singleRotationDuration).SetRelative(true));
-        sequence.OnPlay(PlayRotateSound);
+
+        sequence.OnStart(() =>
+        {
+            (playerID == PlayerID.Player1 ? redVFX : blueVFX).Play();
+            AudioManager.Instance.PlaySFX(rotateSFX);
+        });
 
         return sequence;
     }
 
-    public Tween BluffHourglass()
+    public Tween BluffHourglass(PlayerID playerID)
     {
         Sequence sequence = DOTween.Sequence();
-
+        
         sequence.SetEase(Ease.InOutQuad);
         sequence.Append(transform.DOMoveX(xMovementWhenBluffing, singleRotationDuration / 4).SetEase(Ease.Linear));
         sequence.Append(transform.DOMoveX(-xMovementWhenBluffing, singleRotationDuration / 2).SetEase(Ease.Linear));
         sequence.Append(transform.DOMoveX(0, singleRotationDuration / 4).SetEase(Ease.Linear));
-        sequence.OnPlay(PlayRotateSound);
-
+        
+        sequence.OnStart(() =>
+        {
+            (playerID == PlayerID.Player1 ? redVFX : blueVFX).Play();
+            AudioManager.Instance.PlaySFX(rotateSFX);
+        });
+        
         return sequence;
     }
 
@@ -116,11 +134,13 @@ public class Hourglass : MonoBehaviour
             if (inputType == InputType.Rotate)
             {
                 targetRotation.z = loop%2 == 0 ? 180 : -180;
-                sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.InOutQuad));
+                sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.InOutQuad)
+                    .OnStart(() => AudioManager.Instance.PlaySFX(rotateRecapSFX)));
             }
             else
             {
-                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 16).SetEase(Ease.Linear));
+                sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 16).SetEase(Ease.Linear)
+                    .OnStart(() => AudioManager.Instance.PlaySFX(bluffRecapSFX)));
                 sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 8).SetEase(Ease.Linear));
                 sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 16).SetEase(Ease.Linear));
                 sequenceFlip.AppendInterval(.15f);
@@ -141,17 +161,7 @@ public class Hourglass : MonoBehaviour
         
         Sequence finalSequence = DOTween.Sequence();
         finalSequence.Append(sequenceFlip);
-        finalSequence.OnComplete(PlayEndRecapSFX);
+        finalSequence.OnComplete(() => AudioManager.Instance.PlaySFX(endRecapSFX));
         return finalSequence;
-    }
-
-    private void PlayRotateSound()
-    {
-        AudioManager.Instance.PlaySFX(rotateSFX);
-    }
-
-    private void PlayEndRecapSFX()
-    {
-        AudioManager.Instance.PlaySFX(endRecapSFX);
     }
 }
