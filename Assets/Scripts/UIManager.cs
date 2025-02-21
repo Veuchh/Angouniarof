@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float apparitionTime, fadingTime;
     [SerializeField] private Color redColor, blueColor;
 
+    [SerializeField] private List<TextMeshProUGUI> victoryTexts;
+
 
     Transform player1Instance;
     Transform player2Instance;
@@ -201,5 +203,33 @@ public class UIManager : MonoBehaviour
     {
         playerTurnBackground[0].sprite = playerTurnImages[2];
         playerTurnBackground[1].sprite = playerTurnImages[2];
+    }
+
+    public Sequence ShowVictoryScreen(PlayerID winningPlayer)
+    {
+        Sequence finalSequence = DOTween.Sequence();
+
+        foreach (TextMeshProUGUI text in victoryTexts)
+        {
+            Sequence sequence = DOTween.Sequence();
+        
+            text.text = $"Victoire de {(winningPlayer == PlayerID.Player1 ? "Rouge" : "Bleu")}";
+            text.gameObject.SetActive(true);
+        
+            Color color = winningPlayer == PlayerID.Player1 ? redColor : blueColor;
+            text.color = new Color(color.r, color.g, color.b, 0);
+        
+            text.gameObject.SetActive(true);
+            text.rectTransform.localScale = Vector3.one;
+        
+            sequence.Append(text.rectTransform.DOScale(Vector3.one/10, apparitionTime/2).From());
+            sequence.Join(text.DOColor(color, fadingTime));
+            
+            sequence.Append(text.rectTransform.DOScale(Vector3.one *3/4, apparitionTime / 2).SetLoops(-1, LoopType.Yoyo));
+            
+            finalSequence.Join(sequence);
+        }
+        
+        return finalSequence;
     }
 }

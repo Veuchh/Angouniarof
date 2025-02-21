@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] SFXData playerPlayedSFX;
     [SerializeField] SFXData roundStartSFX;
     [SerializeField] SFXData roundEndSFX;
+    [SerializeField] SFXData winSFX;
 
     int player1Score = 0;
     int player2Score = 0;
@@ -150,11 +151,14 @@ public class GameManager : MonoBehaviour
 
     Tween OnPlayerVictory(PlayerID winningPlayer)
     {
-        currentGameState = GameState.GameOver;
+        //currentGameState = GameState.GameOver;
 
         Sequence sequence = DOTween.Sequence();
-
-        UIManager.Instance.ShowPlayerWinUI(winningPlayer);
+        
+        sequence.AppendCallback(() => UIManager.Instance.ShowPlayerWinUI(winningPlayer));
+        sequence.AppendCallback(() => AudioManager.Instance.PlaySFX(winSFX));
+        sequence.Append(UIManager.Instance.ShowVictoryScreen(winningPlayer));
+        sequence.Join(DOTween.Sequence().AppendCallback(() => currentGameState = GameState.GameOver));
 
         return sequence;
     }
