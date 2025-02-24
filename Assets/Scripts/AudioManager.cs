@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource sfxAs;
     [SerializeField] AudioSource chillMusicAs;
     [SerializeField] AudioSource gameMusicAs;
+    [SerializeField] AudioSource timerSFX;
     [SerializeField] float fadeMusicDuration = 1;
 
     private void Awake()
@@ -25,17 +26,17 @@ public class AudioManager : MonoBehaviour
 
     public void Play(SFXData sfxData)
     {
-        if(sfxAs.isPlaying)
+        if(timerSFX.isPlaying)
             return;
-        sfxAs.pitch = sfxData.GetPitch;
-        sfxAs.volume = sfxData.GetVolume;
-        sfxAs.clip = sfxData.GetAudioClip;
-        sfxAs.Play();
+        timerSFX.pitch = sfxData.GetPitch;
+        timerSFX.volume = sfxData.GetVolume;
+        timerSFX.clip = sfxData.GetAudioClip;
+        timerSFX.Play();
     }
 
     public void Stop()
     {
-        sfxAs.Stop();
+        timerSFX.Stop();
     }
 
     public void ChangeMusicType(bool isInGame)

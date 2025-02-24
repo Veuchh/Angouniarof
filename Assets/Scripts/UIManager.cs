@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Sprite> cancelSprites;
     [SerializeField] private List<Image> playerTurnBackground;
     [SerializeField] private List<Sprite> playerTurnImages;
+    [SerializeField] private List<Sprite> playerJewels;
+    [SerializeField] private List<TextMeshProUGUI> playersScore;
     
     [Header("Center Text parameters")]
     [SerializeField] private TextMeshProUGUI centerText;
@@ -76,9 +78,15 @@ public class UIManager : MonoBehaviour
     public void UpdateStep(PlayerID currentPlayerTurn, int currentTurnIndex)
     {
         if (currentPlayerTurn == PlayerID.Player1)
+        {
             player1StepsMain[currentTurnIndex / 2].enabled = true;
+            player1StepsMain[currentTurnIndex / 2].sprite = playerJewels[0];
+        }
         else
+        {
             player2StepsMain[(currentTurnIndex - 1) / 2].enabled = true;
+            player2StepsMain[(currentTurnIndex - 1) / 2].sprite = playerJewels[1];
+        }
     }
 
     public void ResetStep()
@@ -94,16 +102,17 @@ public class UIManager : MonoBehaviour
     {
         int playerIndex = currentPlayerTurn == PlayerID.Player1 ? 0 : 1;
         playersActionPublic[playerIndex].color = Color.white;
+        playersActionPublic[playerIndex].sprite = inputType == InputType.Rotate ? rotationSprites[playerIndex] : cancelSprites[playerIndex];
+    }
 
+    public void UpdateRecapMove(InputType inputType, int turnIndex)
+    {
+        int playerIndex = turnIndex%2 == 0 ? 0 : 1;
 
-        if (inputType == InputType.Rotate)
-        {
-            playersActionPublic[playerIndex].sprite = rotationSprites[playerIndex];
-        }
+        if (playerIndex == 0)
+            player1StepsMain[turnIndex / 2].sprite = inputType == InputType.Rotate ? rotationSprites[playerIndex] : cancelSprites[playerIndex];
         else
-        {
-            playersActionPublic[playerIndex].sprite = cancelSprites[playerIndex];
-        }
+            player2StepsMain[(turnIndex - 1) / 2].sprite = inputType == InputType.Rotate ? rotationSprites[playerIndex] : cancelSprites[playerIndex];
     }
 
     public void ResetLastMove()
@@ -138,8 +147,16 @@ public class UIManager : MonoBehaviour
     {
         Sequence sequence = DOTween.Sequence();
 
+        Debug.Log(player1Score + ", " + player2Score);
         sequence.Join(playerScoreRecapScreen.UpdateScores(player1Score, player2Score));
         sequence.Join(audienceScoreRecapScreen.UpdateScores(player1Score, player2Score));
+        sequence.OnStart(() =>
+        {
+            playersScore[0].text = $"{player1Score}/3";
+            playersScore[1].text = $"{player2Score}/3";
+            playersScore[2].text = $"{player1Score}/3";
+            playersScore[3].text = $"{player2Score}/3";
+        });
 
         return sequence;
     }
@@ -179,10 +196,11 @@ public class UIManager : MonoBehaviour
         if (textFinished)
         {
             int realSecond = (int)Math.Truncate(timeLeft);
+            Debug.Log(realSecond);
 
             if(realSecond > 9)
                 return;
-            if(realSecond <= 5)
+            if(realSecond < 4)
                 AudioManager.Instance.Play(timerCountdown);
             centerText.color += new Color(0, 0, 0, 1);
             centerText.text = (realSecond+1).ToString();

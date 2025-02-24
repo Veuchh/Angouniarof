@@ -167,6 +167,7 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.UpdateStep(currentPlayerTurn, currentTurnIndex);
         UIManager.Instance.UpdateLastMove(currentPlayerTurn, currentInputType);
+        AudioManager.Instance.Stop();
         currentTurnIndex++;
 
         if (currentTurnIndex >= roundTurnsAmount)

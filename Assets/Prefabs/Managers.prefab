@@ -94,6 +94,9 @@ MonoBehaviour:
   turnDuration: 7
   pointsToWinGame: 3
   playerPlayedSFX: {fileID: 11400000, guid: 638908aa67bb500469949e6d6d5bc7e5, type: 2}
+  roundStartSFX: {fileID: 0}
+  roundEndSFX: {fileID: 0}
+  winSFX: {fileID: 0}
 --- !u!114 &8670409376829630197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,11 +126,18 @@ MonoBehaviour:
   cancelSprites:
   - {fileID: 21300000, guid: 946a0dd23f0a53f489d4dea54ad5d650, type: 3}
   - {fileID: 21300000, guid: 753bfcf943e903f469c5760fc0e6c627, type: 3}
+  playerTurnBackground: []
+  playerTurnImages: []
+  playerJewels:
+  - {fileID: 21300000, guid: 7e8d0eb8752597f4d944c75b80c71949, type: 3}
+  - {fileID: 21300000, guid: 6835d1fac837e1046a9144d86e96632f, type: 3}
   centerText: {fileID: 0}
   apparitionTime: 1.5
   fadingTime: 0.5
   redColor: {r: 0.8588236, g: 0.29411766, b: 0.29411766, a: 1}
   blueColor: {r: 0.43921572, g: 0.7019608, b: 0.79215693, a: 1}
+  timerCountdown: {fileID: 0}
+  victoryTexts: []
 --- !u!114 &5350608013795281605
 MonoBehaviour:
   m_ObjectHideFlags: 0

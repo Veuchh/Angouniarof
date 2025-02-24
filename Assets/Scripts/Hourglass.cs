@@ -13,6 +13,7 @@ public class Hourglass : MonoBehaviour
     [SerializeField] LayerMask playerCameraHiddenLayerMask;
     [SerializeField] LayerMask playerCameraShownLayerMask;
     [SerializeField] Camera playerCamera;
+    [SerializeField] private GameObject fakeHourglass;
     [Header("Hourglass settings")]
     [SerializeField] float singleRotationDuration = .3f;
     [SerializeField] float setupTweenDuration = .5f;
@@ -72,6 +73,7 @@ public class Hourglass : MonoBehaviour
     public void ToggleHourglass(bool toggle)
     {
         playerCamera.cullingMask = toggle ? playerCameraShownLayerMask : playerCameraHiddenLayerMask;
+        fakeHourglass.transform.rotation = transform.rotation;
     }
 
     public Tween RotateHourglassToPlayerWinningState(PlayerID playerID)
@@ -134,13 +136,23 @@ public class Hourglass : MonoBehaviour
             if (inputType == InputType.Rotate)
             {
                 targetRotation.z = loop%2 == 0 ? 180 : -180;
+                int temp = loop;
                 sequenceFlip.Append(transform.DORotate(targetRotation, rotationTime).SetRelative(true).SetEase(Ease.InOutQuad)
-                    .OnStart(() => AudioManager.Instance.PlaySFX(rotateRecapSFX)));
+                    .OnStart(() =>
+                    {
+                        AudioManager.Instance.PlaySFX(rotateRecapSFX);
+                        UIManager.Instance.UpdateRecapMove(inputType, temp);
+                    }));
             }
             else
             {
+                int temp = loop;
                 sequenceFlip.Append(transform.DOMoveX(xMovementWhenBluffing, rotationTime / 16).SetEase(Ease.Linear)
-                    .OnStart(() => AudioManager.Instance.PlaySFX(bluffRecapSFX)));
+                    .OnStart(() =>
+                    {
+                        AudioManager.Instance.PlaySFX(bluffRecapSFX);
+                        UIManager.Instance.UpdateRecapMove(inputType, temp);
+                    }));
                 sequenceFlip.Append(transform.DOMoveX(-xMovementWhenBluffing, rotationTime / 8).SetEase(Ease.Linear));
                 sequenceFlip.Append(transform.DOMoveX(0, rotationTime / 16).SetEase(Ease.Linear));
                 sequenceFlip.AppendInterval(.15f);
